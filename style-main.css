@@ -153,7 +153,9 @@ img {
 }
 
 
-/* Header */
+/*--------------------------------------------------------------
+Header:
+--------------------------------------------------------------*/
 
 .masthead {
 	padding: 0 1em;
@@ -161,6 +163,54 @@ img {
 	border-bottom: 1px solid hsl(0, 0%, 90%);
 }
 
+/*--------------------------------------------------------------
+Navigation:
+--------------------------------------------------------------*/
+.main-nav {
+	padding: 1em;
+	font-size: 1.1em;
+	color: white;
+    background-color: hsl(0, 0%, 10%);
+}
+
+.trigger {
+	display: none;
+	padding: .1em .5em;
+	color: white;
+	background: hsl(0, 0%, 10%);
+	border: none;
+	transform: rotate(90deg);
+}
+
+.trigger:focus,
+.trigger:hover {
+	outline: 2px dotted hsl(0, 0%, 10%);
+}
+
+.trigger:focus {
+	outline-color: white;
+}
+
+.main-nav ul {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.main-nav a {
+	display: block;
+	padding: .4em 1em;
+	color: white;
+	text-decoration: none;
+}
+
+.main-nav a:focus,
+.main-nav a:hover {
+	text-decoration: underline;
+}
 
 /*--------------------------------------------------------------
 Cards:
@@ -196,47 +246,168 @@ Cards:
 	margin-top: .5em;
 	margin-bottom: 0;
 }
+
 .cards a:focus .caption,
 .cards a:hover .caption {
 	background: hsl(0, 0%, 97%);
 }
+
+
+/*--------------------------------------------------------------
+Sidebar:
+--------------------------------------------------------------*/
+
+.twin {
+	padding: 2em;
+	background: #2185C5;
+	color: white;
+}
+
+.twin:last-of-type {
+	background: #FF7F66;
+}
+
+/*--------------------------------------------------------------
+Footer:
+--------------------------------------------------------------*/
+
+.colophon {
+	padding: 2em;
+	background: hsl(0, 0%, 10%);
+	color: white;
+	text-align: center;
+}
+
+.colophon a {
+	color: white;
+}
+
+.colophon a:hover,
+.colophon a:focus {
+	border-bottom: 1px solid white;
+}
+
 /*--------------------------------------------------------------
 CSS Grid layout for wider screens, when browser supports grid:
 --------------------------------------------------------------*/
 @supports (grid-area: auto) {
+
 	@media screen and (min-width: 27em) {
+
+		.site {
+			position: relative;
+			left: -14em;
+			overflow-x: hidden;
+			display: grid;
+			grid-template-columns: 15em calc(100% - 1em);
+			grid-template-areas:
+				"nav header"
+				"nav main"
+				"nav sidebar"
+				"nav footer";
+			transition: left .6s;
+		}
+
+		.reveal {
+			left: 0;
+		}
+
+		.masthead {
+			grid-area: header;
+		}
+
+		.main-area {
+			grid-area: main;
+		}
+
+		.sidebar {
+			grid-area: sidebar;
+		}
+
+		.colophon {
+			grid-area: footer;
+		}
+
+		.main-nav {
+			grid-area: nav;
+		}
+
+		.main-nav ul {
+			display: none;
+			flex-direction: column;
+		}
+
+		.open ul {
+			display: flex;
+		}
+
+		.trigger {
+			position: fixed;
+			display: block;
+			top: 1.5em;
+			left: .2em;
+			transition: left .6s;
+		}
+
+		.reveal .trigger {
+			left: 14em;
+		}
+
+
 		.cards {
 			margin: 0 auto;
 			padding: 1em;
 		}
+
 		.card {
 			margin: 1em 0;
 			padding: .5em;
 			display: grid;
 			grid-template-columns: 8em auto;
 		}
+
 		.cards a:focus,
 		.cards a:hover {
 			outline: 1px solid hsl(0, 0%, 80%);
 		}
+
+
 	}
+
 	@media screen and (min-width: 60em) {
-    .cards {
+
+		.cards {
 			max-width: none;
 			margin: 1em 0;
 			display: grid;
-			grid-template-columns: repeat(2,25em);
+			grid-template-columns: repeat(2, 25em);
 			grid-gap: 1em;
 			justify-content: center;
 		}
+
 		.card {
-			margin: 0px;
+			margin: 0;
 		}
+
 		.double {
 			grid-row: span 3;
 		}
+
 		.double .card {
 			display: block;
 		}
+
 	}
+
+	@media screen and (min-width: 78em) {
+
+		.site {
+			grid-template-columns: 15em calc(100% - 16em) 15em;
+			grid-template-areas:
+				"nav header header"
+				"nav main sidebar"
+				"nav footer footer";
+		}
+	}
+
 }
